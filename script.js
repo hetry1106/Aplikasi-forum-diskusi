@@ -2,8 +2,8 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 
 // Inisialisasi Supabase client
 const supabase = createClient(
-  "https://feriqnmbfzixgeedmvzw.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZlcmlxbm1iZnppeGdlZWRtdnp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA2ODY3NTAsImV4cCI6MjA2NjI2Mjc1MH0.POc4TH7fATyb1lsWmMPmUZUww4vaH_5qgGCsD3MsW-E"
+  "https://cukvlzvagczwwtxpxpya.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN1a3ZsenZhZ2N6d3d0eHB4cHlhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTEzODc5OTUsImV4cCI6MjA2Njk2Mzk5NX0.e4ByMBH8gP0E5WZSZbssmXc7tEGG5pWJ5ys-P-eB3_E"
 );
 
 // Mendapatkan elemen DOM
