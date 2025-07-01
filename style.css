@@ -1,0 +1,445 @@
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Halaman Autentikasi */
+        #halaman-auth {
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+        #halaman-auth h2 {
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #333;
+            text-align: center;
+        }
+        #halaman-auth .form-control {
+            border-radius: 8px;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+        #halaman-auth .btn {
+            border-radius: 8px;
+            padding: 12px 0;
+            font-weight: 500;
+            margin-top: 15px;
+        }
+        #halaman-auth .nav-tabs {
+            margin-bottom: 25px;
+            border-bottom: none;
+            justify-content: center;
+        }
+        #halaman-auth .nav-tabs .nav-link {
+            border: none;
+            border-radius: 0;
+            border-bottom: 3px solid transparent;
+            font-weight: 500;
+            color: #555;
+            padding: 10px 20px;
+        }
+        #halaman-auth .nav-tabs .nav-link.active {
+            color: #007bff;
+            border-bottom-color: #007bff;
+            background-color: transparent;
+        }
+
+        /* Halaman Chat */
+        #halaman-chat {
+            width: 100%;
+            height: 95vh;
+            max-width: 1200px; /* Lebar maksimal aplikasi chat */
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            display: none; /* Default hidden, controlled by JS */
+        }
+
+        .chat-sidebar {
+            width: 350px; /* Lebar default sidebar */
+            border-right: 1px solid #eee;
+            background-color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            position: relative; /* Untuk positioning tombol logout mobile */
+        }
+
+        .chatlist-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+        }
+        .chatlist-header h5 {
+            font-weight: 600;
+            margin-bottom: 0;
+            color: #333;
+        }
+        .chatlist-header .dropdown-toggle::after {
+            display: none;
+        }
+        .chatlist-header .dropdown-menu {
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .chatlist-header .dropdown-item {
+            padding: 10px 15px;
+            font-size: 0.95rem;
+        }
+
+        .chat-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Biarkan daftar chat mengisi ruang yang tersedia */
+            overflow-y: auto; /* Scrollable */
+        }
+        .chat-list ul::-webkit-scrollbar {
+            width: 8px;
+        }
+        .chat-list ul::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .chat-list ul::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .chat-list ul::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .chat-list li {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .chat-list li:hover {
+            background-color: #f0f2f5;
+        }
+        .chat-list li.active {
+            background-color: #e9ecef;
+        }
+        .chat-list li .avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-right: 15px;
+        }
+        .chat-list li .chat-info {
+            flex-grow: 1;
+        }
+        .chat-list li .chat-info .name {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+        .chat-list li .chat-info .last-message {
+            font-size: 0.85rem;
+            color: #666;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 180px; /* Batasi lebar pesan terakhir */
+        }
+        .chat-list li .chat-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.75rem;
+            color: #999;
+        }
+        .chat-list li .chat-meta .unread-badge {
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 50%;
+            padding: 4px 8px;
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+
+        /* Main Chat Area */
+        .main-chat-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Penting: agar flexbox bekerja dengan benar untuk children */
+        }
+
+        /* Chat Content Container */
+        #chat-content-container {
+            flex-grow: 1; /* Penting: biarkan container ini mengisi sisa ruang vertikal */
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Memastikan ini mengambil tinggi penuh dari parent .main-chat-area */
+            overflow: hidden; /* Penting: Agar scrollbar hanya ada di kotak-pesan */
+        }
+
+        .chat-header-main {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0; /* Penting: Pastikan header tidak mengecil */
+        }
+        .chat-header-main .chat-partner-info {
+            display: flex;
+            align-items: center;
+        }
+        .chat-header-main .chat-partner-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #6c757d;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            margin-right: 10px;
+        }
+        .chat-header-main .chat-partner-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1rem;
+        }
+
+        #kotak-pesan {
+            flex-grow: 1; /* Penting: ini akan mengisi semua ruang yang tersisa */
+            padding: 20px;
+            overflow-y: auto; /* Ini yang membuat pesan bisa di-scroll */
+            background-color: #f9f9f9;
+            /* Tambahan untuk scroll smooth (opsional) */
+            scroll-behavior: smooth;
+        }
+        #kotak-pesan::-webkit-scrollbar {
+            width: 8px;
+        }
+        #kotak-pesan::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        #kotak-pesan::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        #kotak-pesan::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        .pesan {
+            padding: 10px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        .pesan.dikirim {
+            background-color: #dcf8c6;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .pesan.diterima {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            align-self: flex-start;
+            margin-right: auto;
+        }
+        .pesan-timestamp {
+            font-size: 0.7rem;
+            color: #888;
+            margin-left: 10px;
+            display: block; /* Menempatkan timestamp di baris baru */
+            text-align: right; /* Rata kanan timestamp */
+            margin-top: 5px;
+        }
+        .pesan.diterima .pesan-timestamp {
+            text-align: left; /* Rata kiri timestamp untuk pesan diterima */
+        }
+
+        .chat-input-area {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background-color: #fff;
+            display: flex;
+            align-items: center;
+            flex-shrink: 0; /* Penting: Pastikan area input tidak mengecil */
+        }
+        .chat-input-area .form-control {
+            flex-grow: 1;
+            border-radius: 20px;
+            padding: 10px 18px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+            background-color: #f0f2f5;
+        }
+        .chat-input-area .btn-send-wrapper {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .chat-input-area .btn-send-wrapper:hover {
+            background-color: #0056b3;
+        }
+
+        /* Empty Chat Placeholder */
+        #empty-chat-placeholder {
+            flex-grow: 1; /* Biarkan placeholder mengisi sisa ruang saat aktif */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #888;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        #empty-chat-placeholder i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+
+        /* --- Responsivitas Mobile --- */
+        /* Sembunyikan tombol toggle di desktop */
+        .btn-toggle-chatlist, .btn-back-to-chatlist {
+            display: none;
+        }
+
+        /* Sembunyikan tombol logout desktop di mobile */
+        #btn-keluar {
+            display: block; /* Default desktop */
+        }
+        #btn-keluar-mobile {
+            display: none; /* Default hidden */
+        }
+
+        @media (max-width: 768px) {
+            body {
+                align-items: flex-start; /* Untuk mobile, sejajar dari atas */
+                min-height: 100vh;
+                background-color: #ffffff; /* Ubah background body di mobile */
+            }
+
+            #halaman-chat {
+                height: 100vh; /* Penuhi tinggi layar di mobile */
+                width: 100%;
+                border-radius: 0;
+                box-shadow: none;
+            }
+
+            .chat-sidebar {
+                position: absolute; /* Absolute positioning untuk sidebar */
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1000;
+                transform: translateX(-100%); /* Sembunyikan sidebar di luar layar */
+                transition: transform 0.3s ease-in-out;
+                border-right: none;
+                background-color: #fff;
+            }
+            .chat-sidebar.show {
+                transform: translateX(0); /* Tampilkan sidebar */
+            }
+
+            .main-chat-area {
+                width: 100%;
+                height: 100%; /* Penting untuk mobile juga */
+            }
+
+            /* Tampilkan tombol toggle di mobile */
+            .btn-toggle-chatlist {
+                display: block; /* Tampilkan di mobile */
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: #555;
+            }
+
+            /* Tampilkan tombol kembali di mobile */
+            .btn-back-to-chatlist {
+                display: block; /* Tampilkan di mobile */
+                font-size: 1.5rem;
+                margin-right: 15px; /* Spasi dari avatar */
+                cursor: pointer;
+                color: #555;
+            }
+
+            /* Sembunyikan tombol logout desktop dan tampilkan yang mobile */
+            #btn-keluar {
+                display: none;
+            }
+            #btn-keluar-mobile {
+                display: block; /* Tampilkan di mobile sidebar */
+                position: absolute; /* Positioning relatif terhadap sidebar */
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: calc(100% - 40px); /* Sesuaikan lebar */
+                border-radius: 8px;
+                padding: 10px 0;
+                font-weight: 500;
+            }
+
+            /* Sesuaikan padding dan font size untuk mobile */
+            .chatlist-header, .chat-header-main, .chat-input-area {
+                padding: 10px 15px;
+            }
+            .chat-header-main .chat-partner-name {
+                font-size: 1rem;
+            }
+            .chat-input-area .form-control {
+                padding: 8px 15px;
+            }
+            .chat-input-area .btn-send-wrapper {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+            .chat-list li {
+                padding: 12px 15px;
+            }
+            .chat-list li .avatar {
+                width: 40px;
+                height: 40px;
+                font-size: 1.3rem;
+                margin-right: 10px;
+            }
+            .chat-list li .chat-info .name {
+                font-size: 0.95rem;
+            }
+            .chat-list li .chat-info .last-message {
+                font-size: 0.8rem;
+                max-width: 120px; /* Lebih kecil untuk mobile */
+            }
+        }
